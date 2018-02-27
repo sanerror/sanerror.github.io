@@ -81,18 +81,16 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/02/28/渲染流水线/" data-id="cje5urqdk00003qurwd4mim2v" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/02/28/渲染流水线/" data-id="cje5uue6b00004qurislcr4vs" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <p>##渲染流水线</p>
-<blockquote>
+        <h2 id="渲染流水线"><a href="#渲染流水线" class="headerlink" title="渲染流水线"></a>渲染流水线</h2><blockquote>
 <p>本文整理自《Unity Shader入门精要》以及<a href="https://learnopengl.com/#!Getting-started/Hello-Triangle" target="_blank" rel="noopener">LearnOpenGL</a></p>
 </blockquote>
-<p>###综述</p>
-<p>渲染流水线的工作任务在于由一个三维场景出发，生成一张二维图像。通常由CPU和GPU共用完成。</p>
+<h3 id="综述"><a href="#综述" class="headerlink" title="综述"></a>综述</h3><p>渲染流水线的工作任务在于由一个三维场景出发，生成一张二维图像。通常由CPU和GPU共用完成。</p>
 <p>《RTR》把整个渲染流程概念化为三个阶段：</p>
 <ol>
 <li><p>应用阶段（CPU）</p>
@@ -113,9 +111,7 @@
 </ol>
 <h3 id="GPU流水线"><a href="#GPU流水线" class="headerlink" title="GPU流水线"></a>GPU流水线</h3><p><img src="/2018/02/28/渲染流水线/pipeline.png" alt="pipeline"></p>
 <p>GPU的渲染流水线如上图，GPU从显存中读取顶点数据，进入几何阶段。其中屏幕映射、三角形设置、三角形遍历都是GPU固定实现的（Fixed-function），不可编程或者配置。</p>
-<p>####几何阶段中包含以下子流水线阶段：</p>
-<p>####1.顶点着色器（Vertex Shader）</p>
-<p>输入顶点数据，对顶点做坐标变换（模拟水或者布料），把顶点坐标从模型空间转换到齐次裁剪空间（视锥体确定的空间，即经过MVP矩阵变换后的空间），做透视除法（xyz除以齐次坐标）后得到归一化后的设备坐标NDC（Normalized Device Coordinates），在OpenGL是(-1,1)，再计算顶点颜色；</p>
+<h4 id="几何阶段中包含以下子流水线阶段："><a href="#几何阶段中包含以下子流水线阶段：" class="headerlink" title="几何阶段中包含以下子流水线阶段："></a>几何阶段中包含以下子流水线阶段：</h4><h4 id="1-顶点着色器（Vertex-Shader）"><a href="#1-顶点着色器（Vertex-Shader）" class="headerlink" title="1.顶点着色器（Vertex Shader）"></a>1.顶点着色器（Vertex Shader）</h4><p>输入顶点数据，对顶点做坐标变换（模拟水或者布料），把顶点坐标从模型空间转换到齐次裁剪空间（视锥体确定的空间，即经过MVP矩阵变换后的空间），做透视除法（xyz除以齐次坐标）后得到归一化后的设备坐标NDC（Normalized Device Coordinates），在OpenGL是(-1,1)，再计算顶点颜色；</p>
 <h4 id="2-曲面细分着色器（Tessellation-Shader）"><a href="#2-曲面细分着色器（Tessellation-Shader）" class="headerlink" title="2.曲面细分着色器（Tessellation Shader）"></a>2.曲面细分着色器（Tessellation Shader）</h4><p>可选，用于细分图元；</p>
 <h4 id="3-几何着色器（Geometry-Shader）"><a href="#3-几何着色器（Geometry-Shader）" class="headerlink" title="3.几何着色器（Geometry Shader）"></a>3.几何着色器（Geometry Shader）</h4><p>可选，用于执行逐图元的着色操作，或用于产生更多的图元；</p>
 <h4 id="4-裁剪（Clipping）"><a href="#4-裁剪（Clipping）" class="headerlink" title="4.裁剪（Clipping）"></a>4.裁剪（Clipping）</h4><p>将部分在视野内的图元裁剪成两部分，舍弃在NDC立方体外的部分，只将在NDC立方体内的图元传播到下一个环节，这步不可编程，是硬件上的固定操作，但可以进行配置；</p>
@@ -129,14 +125,13 @@
 <h4 id="3-片元着色器（Fragment-Shader-Pixel-Shader）"><a href="#3-片元着色器（Fragment-Shader-Pixel-Shader）" class="headerlink" title="3.片元着色器（Fragment Shader/Pixel Shader）"></a>3.片元着色器（Fragment Shader/Pixel Shader）</h4><p>输入片元信息，输出像素真正的颜色值，此阶段包含纹理采样等渲染技术，但是一般仅能影响单个片元。</p>
 <h4 id="4-逐片元操作（Per-Fragment-Operations-Output-Merger）"><a href="#4-逐片元操作（Per-Fragment-Operations-Output-Merger）" class="headerlink" title="4.逐片元操作（Per-Fragment Operations/Output-Merger）"></a>4.逐片元操作（Per-Fragment Operations/Output-Merger）</h4><p>这一阶段决定片元的可见性，主要过程如图：</p>
 <p><img src="/2018/02/28/渲染流水线/Output_Merger.png" alt="逐片元操作"></p>
-<h5 id="模板测试"><a href="#模板测试" class="headerlink" title="模板测试"></a>模板测试</h5><h5 id="深度测试"><a href="#深度测试" class="headerlink" title="深度测试"></a>深度测试</h5><p>#####混合</p>
-
+<h5 id="模板测试"><a href="#模板测试" class="headerlink" title="模板测试"></a>模板测试</h5><h5 id="深度测试"><a href="#深度测试" class="headerlink" title="深度测试"></a>深度测试</h5><h5 id="混合"><a href="#混合" class="headerlink" title="混合"></a>混合</h5>
       
     </div><!-- .entry-content -->
 
     <footer class="entry-meta">
     <a href="/2018/02/28/渲染流水线/">
-    <time datetime="2018-02-27T16:14:28.085Z" class="entry-date">
+    <time datetime="2018-02-27T16:16:31.738Z" class="entry-date">
         2018-02-28
     </time>
 </a>
