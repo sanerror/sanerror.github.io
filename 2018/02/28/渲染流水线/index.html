@@ -98,7 +98,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/02/28/渲染流水线/" data-id="cje5ud1p400000uurc6hterq1" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/02/28/渲染流水线/" data-id="cje5uoxv000012qurglen63ok" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -128,7 +128,7 @@
 <li>设置渲染状态：设置着色器、光照、材质</li>
 <li>调用Draw Call：CPU发往GPU的渲染命令，GPU根据渲染状态和传输的数据跑完整个GPU流水线，输出屏幕像素</li>
 </ol>
-<h3 id="GPU流水线"><a href="#GPU流水线" class="headerlink" title="GPU流水线"></a>GPU流水线</h3><p><img src="./pipeline.png" alt="pipeline"></p>
+<h3 id="GPU流水线"><a href="#GPU流水线" class="headerlink" title="GPU流水线"></a>GPU流水线</h3><p><img src="/2018/02/28/渲染流水线/./pipeline.png" alt="pipeline"></p>
 <p>GPU的渲染流水线如上图，GPU从显存中读取顶点数据，进入几何阶段。其中屏幕映射、三角形设置、三角形遍历都是GPU固定实现的（Fixed-function），不可编程或者配置。</p>
 <p>####几何阶段中包含以下子流水线阶段：</p>
 <p>####1.顶点着色器（Vertex Shader）</p>
@@ -145,7 +145,7 @@
 <h4 id="2-三角形遍历（Triangle-Traversal）"><a href="#2-三角形遍历（Triangle-Traversal）" class="headerlink" title="2.三角形遍历（Triangle Traversal）"></a>2.三角形遍历（Triangle Traversal）</h4><p>检查每个像素是否被三角网格所覆盖，如果被覆盖，则生成一个片元，这样一个过程就是三角形遍历，也称扫描变换，并且会使用三角网格的顶点信息对所有像素进行插值（深度等），最终输出片元序列，还不是一个真正意义上的像素，而是包含了很多状态的集合（包含屏幕坐标、深度信息、顶点信息、法线以及纹理坐标等），这些状态用于计算像素的最终颜色；</p>
 <h4 id="3-片元着色器（Fragment-Shader-Pixel-Shader）"><a href="#3-片元着色器（Fragment-Shader-Pixel-Shader）" class="headerlink" title="3.片元着色器（Fragment Shader/Pixel Shader）"></a>3.片元着色器（Fragment Shader/Pixel Shader）</h4><p>输入片元信息，输出像素真正的颜色值，此阶段包含纹理采样等渲染技术，但是一般仅能影响单个片元。</p>
 <h4 id="4-逐片元操作（Per-Fragment-Operations-Output-Merger）"><a href="#4-逐片元操作（Per-Fragment-Operations-Output-Merger）" class="headerlink" title="4.逐片元操作（Per-Fragment Operations/Output-Merger）"></a>4.逐片元操作（Per-Fragment Operations/Output-Merger）</h4><p>这一阶段决定片元的可见性，主要过程如图：</p>
-<p><img src="./Output_Merger.png" alt="逐片元操作"></p>
+<p><img src="/2018/02/28/渲染流水线/./Output_Merger.png" alt="逐片元操作"></p>
 <h5 id="模板测试"><a href="#模板测试" class="headerlink" title="模板测试"></a>模板测试</h5><h5 id="深度测试"><a href="#深度测试" class="headerlink" title="深度测试"></a>深度测试</h5><p>#####混合</p>
 
       
