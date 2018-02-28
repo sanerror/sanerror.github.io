@@ -81,7 +81,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/02/28/渲染流水线/" data-id="cje5ux5vg00005rurzs59n5l3" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/02/28/渲染流水线/" data-id="cje6j2h1100000uur341pyes1" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -124,13 +124,37 @@
 <h4 id="3-片元着色器（Fragment-Shader-Pixel-Shader）"><a href="#3-片元着色器（Fragment-Shader-Pixel-Shader）" class="headerlink" title="3.片元着色器（Fragment Shader/Pixel Shader）"></a>3.片元着色器（Fragment Shader/Pixel Shader）</h4><p>输入片元信息，输出像素真正的颜色值，此阶段包含纹理采样等渲染技术，但是一般仅能影响单个片元。</p>
 <h4 id="4-逐片元操作（Per-Fragment-Operations-Output-Merger）"><a href="#4-逐片元操作（Per-Fragment-Operations-Output-Merger）" class="headerlink" title="4.逐片元操作（Per-Fragment Operations/Output-Merger）"></a>4.逐片元操作（Per-Fragment Operations/Output-Merger）</h4><p>这一阶段决定片元的可见性，主要过程如图：</p>
 <p><img src="/2018/02/28/渲染流水线/Output_Merger.png" alt="逐片元操作"></p>
-<h5 id="模板测试"><a href="#模板测试" class="headerlink" title="模板测试"></a>模板测试</h5><h5 id="深度测试"><a href="#深度测试" class="headerlink" title="深度测试"></a>深度测试</h5><h5 id="混合"><a href="#混合" class="headerlink" title="混合"></a>混合</h5>
+<h5 id="模板测试（Stencil-Test）"><a href="#模板测试（Stencil-Test）" class="headerlink" title="模板测试（Stencil Test）"></a>模板测试（Stencil Test）</h5><p><img src="/2018/02/28/渲染流水线/stencil_testing.png" alt="stencil testing"></p>
+<p>对每个片元，对比它的模板缓冲的值与参考值，并且按照一定规则通过测试，如果通过测试，那么此片元可以进入下一个阶段，通常用于渲染阴影、镜面、轮廓等。</p>
+<p>大体步骤如下：</p>
+<ul>
+<li>启用模板缓冲写入 <code>glStencilMask(0xFF)</code></li>
+<li>渲染物体，根据物体更新模板缓冲内容（例如物体轮廓的模板缓冲置为1）<code>glStencilFunc</code></li>
+<li>禁用模板缓冲写入 <code>glStencilMask(0x00)</code></li>
+<li>渲染其它气体，这次根据模板缓冲内容丢弃特定片段（例如不绘制原物体轮廓部分） <code>glStencilFunc</code></li>
+</ul>
+<p>OpenGL相关函数</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">glStencilMask(<span class="number">0xFF</span>); <span class="comment">// 位遮罩(bitmask)，每一位写入模板缓冲时都与它进行位加运算，效果为允许写入 </span></span><br><span class="line">glStencilMask(<span class="number">0x00</span>); <span class="comment">// 0x00，进行位加运算后还是0x00，原模板缓冲不变，效果为禁止写入</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">glStencilFunc(GLenum func, GLint ref, GLuint mask) <span class="comment">// 指定通过模板测试条件，通过测试则直接被绘制，func为比较函数，ref为比较的参考值，mask为位遮罩，比较前对两边先进行位加运算，(ref &amp; mask)(stencil &amp; mask)，再进行比较</span></span><br><span class="line">glStencilFunc(GL_EQUAL, <span class="number">1</span>, <span class="number">0xFF</span>)) <span class="comment">// 当缓冲区等于1时，通过模板测试</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">glStencilOp(GLenum sfail, GLenum dpfail, GLenum dppass) <span class="comment">// 指定测试通过或失败时执行的动作，sfail为模板测试失败时，dpfail为只有深度测试失败时，dppass为两个测试都通过时，执行的动作</span></span><br><span class="line">glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE); <span class="comment">// 字面意思，replace为替换为ref值</span></span><br></pre></td></tr></table></figure>
+<h5 id="深度测试（Depth-Test）"><a href="#深度测试（Depth-Test）" class="headerlink" title="深度测试（Depth Test）"></a>深度测试（Depth Test）</h5><p>通常用于隐藏面消除的z-buffer算法，通过比较片元的深度来判断片元是否通过深度测试，如果通过测试可以进入下一个测试阶段，最终可绘制出来，此阶段也是可以高度配置的，可用于透明效果的实现。</p>
+<h5 id="混合（Blend）"><a href="#混合（Blend）" class="headerlink" title="混合（Blend）"></a>混合（Blend）</h5><p>用于半透明物体或者透明物体的实现，如果没有混合操作，就会直接使用片元的颜色覆盖掉颜色缓冲区中的颜色，开了混合后，GPU会取出源色和目标颜色，将两种颜色进行混合。</p>
+<h5 id="测试的顺序与性能"><a href="#测试的顺序与性能" class="headerlink" title="测试的顺序与性能"></a>测试的顺序与性能</h5><p>通常测试是在片元着色器后进行的，但是这样会浪费计算成本，很多片元着色器计算得到的值并不会显示在最终屏幕上，所以大多数GPU会尽可能在片元着色器之前进行这些测试，以提高性能，但是这样有可能与片元着色器中的操作，例如透明度测试，发生冲突，GPU会判断冲突，如果有冲突，则会禁用提前测试，这也是透明度测试会导致性能下降的原因。</p>
+<h3 id="关于Draw-Call造成的性能影响"><a href="#关于Draw-Call造成的性能影响" class="headerlink" title="关于Draw Call造成的性能影响"></a>关于Draw Call造成的性能影响</h3><h4 id="CPU和GPU并行工作"><a href="#CPU和GPU并行工作" class="headerlink" title="CPU和GPU并行工作"></a>CPU和GPU并行工作</h4><p>CPU和GPU通过命令缓冲区（Command Buffer）进行协同工作，即一个命令队列，CPU向其中添加命令，GPU从其中读取命令。</p>
+<h4 id="Draw-Call对性能的影响及优化方法"><a href="#Draw-Call对性能的影响及优化方法" class="headerlink" title="Draw Call对性能的影响及优化方法"></a>Draw Call对性能的影响及优化方法</h4><p>每次调用Draw Call，CPU需要向GPU发送很多内容，包括数据、状态、命令等，这阶段CPU需要完成很多工作，例如检查渲染状态，待CPU完成这些工作后，GPU才开始渲染，但是GPU的渲染速度通常快于CPU的速度，如果Draw Call太多，CPU会把大量时间花费在提交Draw Call上，造成过载。</p>
+<p>那么把大量Draw Call合并成一个Draw Call可以减少Draw Call，这就是批处理（Batching），通常通过在CPU内存中合并静态物体的网格来达到目的。</p>
+<p>游戏开发中减少Draw Call的开销，需要注意：</p>
+<ol>
+<li>避免使用大量很小的网格，同时尽量合并它们；</li>
+<li>避免使用过多的材质；</li>
+</ol>
+
       
     </div><!-- .entry-content -->
 
     <footer class="entry-meta">
     <a href="/2018/02/28/渲染流水线/">
-    <time datetime="2018-02-27T16:18:39.988Z" class="entry-date">
+    <time datetime="2018-02-28T03:34:13.090Z" class="entry-date">
         2018-02-28
     </time>
 </a>
