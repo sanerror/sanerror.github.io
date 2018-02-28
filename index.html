@@ -81,7 +81,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/02/28/渲染流水线/" data-id="cje6j2h1100000uur341pyes1" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/02/28/渲染流水线/" data-id="cje6j9qye00002hur3eapbi1a" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -134,9 +134,9 @@
 <li>渲染其它气体，这次根据模板缓冲内容丢弃特定片段（例如不绘制原物体轮廓部分） <code>glStencilFunc</code></li>
 </ul>
 <p>OpenGL相关函数</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">glStencilMask(<span class="number">0xFF</span>); <span class="comment">// 位遮罩(bitmask)，每一位写入模板缓冲时都与它进行位加运算，效果为允许写入 </span></span><br><span class="line">glStencilMask(<span class="number">0x00</span>); <span class="comment">// 0x00，进行位加运算后还是0x00，原模板缓冲不变，效果为禁止写入</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">glStencilFunc(GLenum func, GLint ref, GLuint mask) <span class="comment">// 指定通过模板测试条件，通过测试则直接被绘制，func为比较函数，ref为比较的参考值，mask为位遮罩，比较前对两边先进行位加运算，(ref &amp; mask)(stencil &amp; mask)，再进行比较</span></span><br><span class="line">glStencilFunc(GL_EQUAL, <span class="number">1</span>, <span class="number">0xFF</span>)) <span class="comment">// 当缓冲区等于1时，通过模板测试</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">glStencilOp(GLenum sfail, GLenum dpfail, GLenum dppass) <span class="comment">// 指定测试通过或失败时执行的动作，sfail为模板测试失败时，dpfail为只有深度测试失败时，dppass为两个测试都通过时，执行的动作</span></span><br><span class="line">glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE); <span class="comment">// 字面意思，replace为替换为ref值</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">glStencilMask(<span class="number">0xFF</span>); <span class="comment">// 位遮罩(bitmask)，每一位写入模板缓冲时都与它进行位加运算，效果为允许</span></span><br><span class="line"><span class="comment">// 写入 </span></span><br><span class="line">glStencilMask(<span class="number">0x00</span>); <span class="comment">// 0x00，进行位加运算后还是0x00，原模板缓冲不变，效果为禁止写入</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">glStencilFunc(GLenum func, GLint ref, GLuint mask) <span class="comment">// 指定通过模板测试条件，通过测试则</span></span><br><span class="line"><span class="comment">// 直接被绘制，func为比较函数，ref为比较的参考值，mask为位遮罩，比较前对两边先进行位加运算，</span></span><br><span class="line"><span class="comment">// (ref &amp; mask)(stencil &amp; mask)，再进行比较</span></span><br><span class="line">glStencilFunc(GL_EQUAL, <span class="number">1</span>, <span class="number">0xFF</span>)) <span class="comment">// 当缓冲区等于1时，通过模板测试</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">glStencilOp(GLenum sfail, GLenum dpfail, GLenum dppass) <span class="comment">// 指定测试通过或失败时执行的动作，</span></span><br><span class="line"><span class="comment">// sfail为模板测试失败时，dpfail为只有深度测试失败时，dppass为两个测试都通过时，执行的动作</span></span><br><span class="line">glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE); <span class="comment">// 字面意思，replace为替换为ref值</span></span><br></pre></td></tr></table></figure>
 <h5 id="深度测试（Depth-Test）"><a href="#深度测试（Depth-Test）" class="headerlink" title="深度测试（Depth Test）"></a>深度测试（Depth Test）</h5><p>通常用于隐藏面消除的z-buffer算法，通过比较片元的深度来判断片元是否通过深度测试，如果通过测试可以进入下一个测试阶段，最终可绘制出来，此阶段也是可以高度配置的，可用于透明效果的实现。</p>
 <h5 id="混合（Blend）"><a href="#混合（Blend）" class="headerlink" title="混合（Blend）"></a>混合（Blend）</h5><p>用于半透明物体或者透明物体的实现，如果没有混合操作，就会直接使用片元的颜色覆盖掉颜色缓冲区中的颜色，开了混合后，GPU会取出源色和目标颜色，将两种颜色进行混合。</p>
 <h5 id="测试的顺序与性能"><a href="#测试的顺序与性能" class="headerlink" title="测试的顺序与性能"></a>测试的顺序与性能</h5><p>通常测试是在片元着色器后进行的，但是这样会浪费计算成本，很多片元着色器计算得到的值并不会显示在最终屏幕上，所以大多数GPU会尽可能在片元着色器之前进行这些测试，以提高性能，但是这样有可能与片元着色器中的操作，例如透明度测试，发生冲突，GPU会判断冲突，如果有冲突，则会禁用提前测试，这也是透明度测试会导致性能下降的原因。</p>
@@ -154,7 +154,7 @@
 
     <footer class="entry-meta">
     <a href="/2018/02/28/渲染流水线/">
-    <time datetime="2018-02-28T03:34:13.090Z" class="entry-date">
+    <time datetime="2018-02-28T03:40:16.381Z" class="entry-date">
         2018-02-28
     </time>
 </a>
