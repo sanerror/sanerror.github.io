@@ -4,6 +4,13 @@
   <meta charset="utf-8">
   
   
+  <meta name="description" content="本文整理自LearnOpenGL
+
+1 颜色在数字设备上，颜色通常由RGB三个值的组合表示，三个值可以组合成很多颜色。
+生活中的物体的颜色是它所反射的颜色，白色的阳光是所有可见颜色的集合，物体仅反射代表物体颜色的部分。
+图形中将光源的颜色与物体的颜色值相乘，得到的就是这个物体所反射的颜色。
+123g" />
+  
 
   
   
@@ -13,12 +20,24 @@
   
   <title>Night&#39;s Watch</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+  <meta name="description" content="本文整理自LearnOpenGL  1 颜色在数字设备上，颜色通常由RGB三个值的组合表示，三个值可以组合成很多颜色。 生活中的物体的颜色是它所反射的颜色，白色的阳光是所有可见颜色的集合，物体仅反射代表物体颜色的部分。 图形中将光源的颜色与物体的颜色值相乘，得到的就是这个物体所反射的颜色。 123glm::vec3 lightColor(0.0f, 1.0f, 0.0f);glm::vec3 t">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Night&#39;s Watch">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://yoursite.com/2018/03/06/光照/index.html">
 <meta property="og:site_name" content="Night&#39;s Watch">
+<meta property="og:description" content="本文整理自LearnOpenGL  1 颜色在数字设备上，颜色通常由RGB三个值的组合表示，三个值可以组合成很多颜色。 生活中的物体的颜色是它所反射的颜色，白色的阳光是所有可见颜色的集合，物体仅反射代表物体颜色的部分。 图形中将光源的颜色与物体的颜色值相乘，得到的就是这个物体所反射的颜色。 123glm::vec3 lightColor(0.0f, 1.0f, 0.0f);glm::vec3 t">
+<meta property="og:image" content="http://yoursite.com/2018/03/06/光照/光照/basic_lighting_phong.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/06/光照/光照/diffuse_light.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/06/光照/光照/basic_lighting_specular_theory.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/06/光照/光照/basic_lighting_specular_shininess.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/06/光照/光照/materials_diffuse_map.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/06/光照/光照/container2_specular.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/06/光照/光照/lighting_maps_exercise4.png">
+<meta property="og:updated_time" content="2018-03-06T14:13:35.115Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Night&#39;s Watch">
+<meta name="twitter:description" content="本文整理自LearnOpenGL  1 颜色在数字设备上，颜色通常由RGB三个值的组合表示，三个值可以组合成很多颜色。 生活中的物体的颜色是它所反射的颜色，白色的阳光是所有可见颜色的集合，物体仅反射代表物体颜色的部分。 图形中将光源的颜色与物体的颜色值相乘，得到的就是这个物体所反射的颜色。 123glm::vec3 lightColor(0.0f, 1.0f, 0.0f);glm::vec3 t">
+<meta name="twitter:image" content="http://yoursite.com/2018/03/06/光照/光照/basic_lighting_phong.png">
   
   
     <link rel="icon" href="/css/images/3Dball.ico">
@@ -64,9 +83,7 @@
     </nav>
 </header>
       <div id="main" class="wrapper">
-        <div id="primary" class="site-content"><div id="content" role="main">
-  
-    <article id="post-光照" class="post-光照 post type-post status-publish format-standard hentry">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-光照" class="post-光照 post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -161,123 +178,20 @@
 </article>
 
 
-
-
-
-
-  
-    <article id="post-渲染流水线" class="post-渲染流水线 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2018/02/28/渲染流水线/">渲染流水线</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/02/28/渲染流水线/" data-id="cjefqk69h00040vur12ji64kv" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <blockquote>
-<p>本文整理自《Unity Shader入门精要》以及<a href="https://learnopengl.com/#!Getting-started/Hello-Triangle" target="_blank" rel="noopener">LearnOpenGL</a></p>
-</blockquote>
-<h3 id="综述"><a href="#综述" class="headerlink" title="综述"></a>综述</h3><p>渲染流水线的工作任务在于由一个三维场景出发，生成一张二维图像。通常由CPU和GPU共用完成。</p>
-<p>《RTR》把整个渲染流程概念化为三个阶段：</p>
-<ol>
-<li><p>应用阶段（CPU）</p>
-<p>即准备好场景数据，进行粗粒度的剔除，设置每个模型的渲染状态（材质、纹理、shader等），输出渲染图元。</p>
-</li>
-<li><p>几何阶段（GPU）</p>
-<p>对每个渲染图元进行逐顶点、逐多边形的操作，把顶点坐标变换到屏幕坐标，输出二维顶点坐标以及每个顶点相应的数据。</p>
-</li>
-<li><p>光栅化阶段（GPU）</p>
-<p>对逐顶点数据进行纹理以及颜色插值，再进行逐像素的其他处理，产生屏幕上的像素，渲染出最终的图像。</p>
-</li>
-</ol>
-<h3 id="渲染流水线中CPU与GPU之间的通信"><a href="#渲染流水线中CPU与GPU之间的通信" class="headerlink" title="渲染流水线中CPU与GPU之间的通信"></a>渲染流水线中CPU与GPU之间的通信</h3><p>渲染流水线的起点是CPU，所以CPU与GPU之间的通信主要出现在应用阶段：</p>
-<ol>
-<li>把数据加载到显存当中：硬盘-&gt;内存-&gt;显存</li>
-<li>设置渲染状态：设置着色器、光照、材质</li>
-<li>调用Draw Call：CPU发往GPU的渲染命令，GPU根据渲染状态和传输的数据跑完整个GPU流水线，输出屏幕像素</li>
-</ol>
-<h3 id="GPU流水线"><a href="#GPU流水线" class="headerlink" title="GPU流水线"></a>GPU流水线</h3><p><img src="/2018/02/28/渲染流水线/pipeline.png" alt="pipeline"></p>
-<p>GPU的渲染流水线如上图，GPU从显存中读取顶点数据，进入几何阶段。其中屏幕映射、三角形设置、三角形遍历都是GPU固定实现的（Fixed-function），不可编程或者配置。</p>
-<h4 id="几何阶段中包含以下子流水线阶段："><a href="#几何阶段中包含以下子流水线阶段：" class="headerlink" title="几何阶段中包含以下子流水线阶段："></a>几何阶段中包含以下子流水线阶段：</h4><h4 id="1-顶点着色器（Vertex-Shader）"><a href="#1-顶点着色器（Vertex-Shader）" class="headerlink" title="1.顶点着色器（Vertex Shader）"></a>1.顶点着色器（Vertex Shader）</h4><p>输入顶点数据，对顶点做坐标变换（模拟水或者布料），把顶点坐标从模型空间转换到齐次裁剪空间（视锥体确定的空间，即经过MVP矩阵变换后的空间），做透视除法（xyz除以齐次坐标）后得到归一化后的设备坐标NDC（Normalized Device Coordinates），在OpenGL是(-1,1)，再计算顶点颜色；</p>
-<h4 id="2-曲面细分着色器（Tessellation-Shader）"><a href="#2-曲面细分着色器（Tessellation-Shader）" class="headerlink" title="2.曲面细分着色器（Tessellation Shader）"></a>2.曲面细分着色器（Tessellation Shader）</h4><p>可选，用于细分图元；</p>
-<h4 id="3-几何着色器（Geometry-Shader）"><a href="#3-几何着色器（Geometry-Shader）" class="headerlink" title="3.几何着色器（Geometry Shader）"></a>3.几何着色器（Geometry Shader）</h4><p>可选，用于执行逐图元的着色操作，或用于产生更多的图元；</p>
-<h4 id="4-裁剪（Clipping）"><a href="#4-裁剪（Clipping）" class="headerlink" title="4.裁剪（Clipping）"></a>4.裁剪（Clipping）</h4><p>将部分在视野内的图元裁剪成两部分，舍弃在NDC立方体外的部分，只将在NDC立方体内的图元传播到下一个环节，这步不可编程，是硬件上的固定操作，但可以进行配置；</p>
-<h4 id="5-屏幕映射（Screen-Mapping）"><a href="#5-屏幕映射（Screen-Mapping）" class="headerlink" title="5.屏幕映射（Screen Mapping）"></a>5.屏幕映射（Screen Mapping）</h4><p>把每个图元的x和y坐标转换到屏幕坐标系（和屏幕分辨率有关系）下，不改变z坐标，由此形成窗口坐标系（屏幕坐标系+z坐标）；</p>
-<blockquote>
-<p>OpenGL和DirectX的屏幕坐标是反向的</p>
-</blockquote>
-<h4 id="光栅化阶段包含以下子流水线阶段："><a href="#光栅化阶段包含以下子流水线阶段：" class="headerlink" title="光栅化阶段包含以下子流水线阶段："></a>光栅化阶段包含以下子流水线阶段：</h4><h4 id="1-三角形设置（Triangle-Setup）"><a href="#1-三角形设置（Triangle-Setup）" class="headerlink" title="1.三角形设置（Triangle Setup）"></a>1.三角形设置（Triangle Setup）</h4><p>计算光栅化一个三角网格所需要的信息，由于上一个阶段输出顶点以及额外的信息，并没有包含三角形的边界信息，这一步主要得到三角形边界的表示方式；</p>
-<h4 id="2-三角形遍历（Triangle-Traversal）"><a href="#2-三角形遍历（Triangle-Traversal）" class="headerlink" title="2.三角形遍历（Triangle Traversal）"></a>2.三角形遍历（Triangle Traversal）</h4><p>检查每个像素是否被三角网格所覆盖，如果被覆盖，则生成一个片元，这样一个过程就是三角形遍历，也称扫描变换，并且会使用三角网格的顶点信息对所有像素进行插值（深度等），最终输出片元序列，还不是一个真正意义上的像素，而是包含了很多状态的集合（包含屏幕坐标、深度信息、顶点信息、法线以及纹理坐标等），这些状态用于计算像素的最终颜色；</p>
-<h4 id="3-片元着色器（Fragment-Shader-Pixel-Shader）"><a href="#3-片元着色器（Fragment-Shader-Pixel-Shader）" class="headerlink" title="3.片元着色器（Fragment Shader/Pixel Shader）"></a>3.片元着色器（Fragment Shader/Pixel Shader）</h4><p>输入片元信息，输出像素真正的颜色值，此阶段包含纹理采样等渲染技术，但是一般仅能影响单个片元。</p>
-<h4 id="4-逐片元操作（Per-Fragment-Operations-Output-Merger）"><a href="#4-逐片元操作（Per-Fragment-Operations-Output-Merger）" class="headerlink" title="4.逐片元操作（Per-Fragment Operations/Output-Merger）"></a>4.逐片元操作（Per-Fragment Operations/Output-Merger）</h4><p>这一阶段决定片元的可见性，主要过程如图：</p>
-<p><img src="/2018/02/28/渲染流水线/Output_Merger.png" alt="逐片元操作"></p>
-<h5 id="模板测试（Stencil-Test）"><a href="#模板测试（Stencil-Test）" class="headerlink" title="模板测试（Stencil Test）"></a>模板测试（Stencil Test）</h5><p><img src="/2018/02/28/渲染流水线/stencil_testing.png" alt="stencil testing"></p>
-<p>对每个片元，对比它的模板缓冲的值与参考值，并且按照一定规则通过测试，如果通过测试，那么此片元可以进入下一个阶段，通常用于渲染阴影、镜面、轮廓等。</p>
-<p>大体步骤如下：</p>
-<ul>
-<li>启用模板缓冲写入 <code>glStencilMask(0xFF)</code></li>
-<li>渲染物体，根据物体更新模板缓冲内容（例如物体轮廓的模板缓冲置为1）<code>glStencilFunc</code></li>
-<li>禁用模板缓冲写入 <code>glStencilMask(0x00)</code></li>
-<li>渲染其它气体，这次根据模板缓冲内容丢弃特定片段（例如不绘制原物体轮廓部分） <code>glStencilFunc</code></li>
-</ul>
-<p>OpenGL相关函数</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">glStencilMask(<span class="number">0xFF</span>); <span class="comment">// 位遮罩(bitmask)，每一位写入模板缓冲时都与它进行位加运算，效果为允许</span></span><br><span class="line"><span class="comment">// 写入 </span></span><br><span class="line">glStencilMask(<span class="number">0x00</span>); <span class="comment">// 0x00，进行位加运算后还是0x00，原模板缓冲不变，效果为禁止写入</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">glStencilFunc(GLenum func, GLint ref, GLuint mask) <span class="comment">// 指定通过模板测试条件，通过测试则</span></span><br><span class="line"><span class="comment">// 直接被绘制，func为比较函数，ref为比较的参考值，mask为位遮罩，比较前对两边先进行位加运算，</span></span><br><span class="line"><span class="comment">// (ref &amp; mask)(stencil &amp; mask)，再进行比较</span></span><br><span class="line">glStencilFunc(GL_EQUAL, <span class="number">1</span>, <span class="number">0xFF</span>)) <span class="comment">// 当缓冲区等于1时，通过模板测试</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">glStencilOp(GLenum sfail, GLenum dpfail, GLenum dppass) <span class="comment">// 指定测试通过或失败时执行的动作，</span></span><br><span class="line"><span class="comment">// sfail为模板测试失败时，dpfail为只有深度测试失败时，dppass为两个测试都通过时，执行的动作</span></span><br><span class="line">glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE); <span class="comment">// 字面意思，replace为替换为ref值</span></span><br></pre></td></tr></table></figure>
-<h5 id="深度测试（Depth-Test）"><a href="#深度测试（Depth-Test）" class="headerlink" title="深度测试（Depth Test）"></a>深度测试（Depth Test）</h5><p>通常用于隐藏面消除的z-buffer算法，通过比较片元的深度来判断片元是否通过深度测试，如果通过测试可以进入下一个测试阶段，最终可绘制出来，此阶段也是可以高度配置的，可用于透明效果的实现。</p>
-<h5 id="混合（Blend）"><a href="#混合（Blend）" class="headerlink" title="混合（Blend）"></a>混合（Blend）</h5><p>用于半透明物体或者透明物体的实现，如果没有混合操作，就会直接使用片元的颜色覆盖掉颜色缓冲区中的颜色，开了混合后，GPU会取出源色和目标颜色，将两种颜色进行混合。</p>
-<h5 id="测试的顺序与性能"><a href="#测试的顺序与性能" class="headerlink" title="测试的顺序与性能"></a>测试的顺序与性能</h5><p>通常测试是在片元着色器后进行的，但是这样会浪费计算成本，很多片元着色器计算得到的值并不会显示在最终屏幕上，所以大多数GPU会尽可能在片元着色器之前进行这些测试，以提高性能，但是这样有可能与片元着色器中的操作，例如透明度测试，发生冲突，GPU会判断冲突，如果有冲突，则会禁用提前测试，这也是透明度测试会导致性能下降的原因。</p>
-<h3 id="关于Draw-Call造成的性能影响"><a href="#关于Draw-Call造成的性能影响" class="headerlink" title="关于Draw Call造成的性能影响"></a>关于Draw Call造成的性能影响</h3><h4 id="CPU和GPU并行工作"><a href="#CPU和GPU并行工作" class="headerlink" title="CPU和GPU并行工作"></a>CPU和GPU并行工作</h4><p>CPU和GPU通过命令缓冲区（Command Buffer）进行协同工作，即一个命令队列，CPU向其中添加命令，GPU从其中读取命令。</p>
-<h4 id="Draw-Call对性能的影响及优化方法"><a href="#Draw-Call对性能的影响及优化方法" class="headerlink" title="Draw Call对性能的影响及优化方法"></a>Draw Call对性能的影响及优化方法</h4><p>每次调用Draw Call，CPU需要向GPU发送很多内容，包括数据、状态、命令等，这阶段CPU需要完成很多工作，例如检查渲染状态，待CPU完成这些工作后，GPU才开始渲染，但是GPU的渲染速度通常快于CPU的速度，如果Draw Call太多，CPU会把大量时间花费在提交Draw Call上，造成过载。</p>
-<p>那么把大量Draw Call合并成一个Draw Call可以减少Draw Call，这就是批处理（Batching），通常通过在CPU内存中合并静态物体的网格来达到目的。</p>
-<p>游戏开发中减少Draw Call的开销，需要注意：</p>
-<ol>
-<li>避免使用大量很小的网格，同时尽量合并它们；</li>
-<li>避免使用过多的材质；</li>
-</ol>
-
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2018/02/28/渲染流水线/">
-    <time datetime="2018-02-28T03:41:58.575Z" class="entry-date">
-        2018-02-28
-    </time>
-</a>
     
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Febr-2018/">Febr 2018</a>
-  </div>
-
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
     
-  <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Graphics/">Graphics</a></li></ul>
-
-    </footer>
-</article>
-
+    
+        <span class="nav-next"><a href="/2018/02/28/渲染流水线/" rel="next">渲染流水线 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
 
 
 
 
 
-  
-  
+
 
 </div></div>
         <div id="secondary" class="widget-area" role="complementary">
