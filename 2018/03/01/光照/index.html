@@ -6,10 +6,10 @@
   
   <meta name="description" content="本文整理自LearnOpenGL
 
-[TOC]
 1 颜色在数字设备上，颜色通常由RGB三个值的组合表示，三个值可以组合成很多颜色。
 生活中的物体的颜色是它所反射的颜色，白色的阳光是所有可见颜色的集合，物体仅反射代表物体颜色的部分。
-图形中将光源的颜色与物体的颜色值相乘，得到的就是这个物体所反射的颜色" />
+图形中将光源的颜色与物体的颜色值相乘，得到的就是这个物体所反射的颜色。
+123g" />
   
 
   
@@ -20,13 +20,13 @@
   
   <title>光照 | Night&#39;s Watch</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="本文整理自LearnOpenGL  [TOC] 1 颜色在数字设备上，颜色通常由RGB三个值的组合表示，三个值可以组合成很多颜色。 生活中的物体的颜色是它所反射的颜色，白色的阳光是所有可见颜色的集合，物体仅反射代表物体颜色的部分。 图形中将光源的颜色与物体的颜色值相乘，得到的就是这个物体所反射的颜色。 123glm::vec3 lightColor(0.0f, 1.0f, 0.0f);glm::">
+  <meta name="description" content="本文整理自LearnOpenGL  1 颜色在数字设备上，颜色通常由RGB三个值的组合表示，三个值可以组合成很多颜色。 生活中的物体的颜色是它所反射的颜色，白色的阳光是所有可见颜色的集合，物体仅反射代表物体颜色的部分。 图形中将光源的颜色与物体的颜色值相乘，得到的就是这个物体所反射的颜色。 123glm::vec3 lightColor(0.0f, 1.0f, 0.0f);glm::vec3 t">
 <meta name="keywords" content="Graphics">
 <meta property="og:type" content="article">
 <meta property="og:title" content="光照">
 <meta property="og:url" content="http://yoursite.com/2018/03/01/光照/index.html">
 <meta property="og:site_name" content="Night&#39;s Watch">
-<meta property="og:description" content="本文整理自LearnOpenGL  [TOC] 1 颜色在数字设备上，颜色通常由RGB三个值的组合表示，三个值可以组合成很多颜色。 生活中的物体的颜色是它所反射的颜色，白色的阳光是所有可见颜色的集合，物体仅反射代表物体颜色的部分。 图形中将光源的颜色与物体的颜色值相乘，得到的就是这个物体所反射的颜色。 123glm::vec3 lightColor(0.0f, 1.0f, 0.0f);glm::">
+<meta property="og:description" content="本文整理自LearnOpenGL  1 颜色在数字设备上，颜色通常由RGB三个值的组合表示，三个值可以组合成很多颜色。 生活中的物体的颜色是它所反射的颜色，白色的阳光是所有可见颜色的集合，物体仅反射代表物体颜色的部分。 图形中将光源的颜色与物体的颜色值相乘，得到的就是这个物体所反射的颜色。 123glm::vec3 lightColor(0.0f, 1.0f, 0.0f);glm::vec3 t">
 <meta property="og:image" content="http://yoursite.com/2018/03/01/光照/basic_lighting_phong.png">
 <meta property="og:image" content="http://yoursite.com/2018/03/01/光照/diffuse_light.png">
 <meta property="og:image" content="http://yoursite.com/2018/03/01/光照/basic_lighting_specular_theory.png">
@@ -40,10 +40,10 @@
 <meta property="og:image" content="http://yoursite.com/2018/03/01/光照/light_casters_spotlight_angles.png">
 <meta property="og:image" content="http://yoursite.com/2018/03/01/光照/light_casters_spotlight_hard.png">
 <meta property="og:image" content="http://yoursite.com/2018/03/01/光照/light_casters_spotlight.png">
-<meta property="og:updated_time" content="2018-03-07T07:38:23.298Z">
+<meta property="og:updated_time" content="2018-03-07T07:46:15.396Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="光照">
-<meta name="twitter:description" content="本文整理自LearnOpenGL  [TOC] 1 颜色在数字设备上，颜色通常由RGB三个值的组合表示，三个值可以组合成很多颜色。 生活中的物体的颜色是它所反射的颜色，白色的阳光是所有可见颜色的集合，物体仅反射代表物体颜色的部分。 图形中将光源的颜色与物体的颜色值相乘，得到的就是这个物体所反射的颜色。 123glm::vec3 lightColor(0.0f, 1.0f, 0.0f);glm::">
+<meta name="twitter:description" content="本文整理自LearnOpenGL  1 颜色在数字设备上，颜色通常由RGB三个值的组合表示，三个值可以组合成很多颜色。 生活中的物体的颜色是它所反射的颜色，白色的阳光是所有可见颜色的集合，物体仅反射代表物体颜色的部分。 图形中将光源的颜色与物体的颜色值相乘，得到的就是这个物体所反射的颜色。 123glm::vec3 lightColor(0.0f, 1.0f, 0.0f);glm::vec3 t">
 <meta name="twitter:image" content="http://yoursite.com/2018/03/01/光照/basic_lighting_phong.png">
   
   
@@ -105,7 +105,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/03/01/光照/" data-id="cjegrvj8600000turqxmzkjhj" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/03/01/光照/" data-id="cjegs59qe00001turfxz739v1" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -114,7 +114,6 @@
         <blockquote>
 <p>本文整理自<a href="https://learnopengl-cn.github.io/02%20Lighting/01%20Colors/#_2" target="_blank" rel="noopener">LearnOpenGL</a></p>
 </blockquote>
-<p>[TOC]</p>
 <h3 id="1-颜色"><a href="#1-颜色" class="headerlink" title="1 颜色"></a>1 颜色</h3><p>在数字设备上，颜色通常由RGB三个值的组合表示，三个值可以组合成很多颜色。</p>
 <p>生活中的物体的颜色是它所反射的颜色，白色的阳光是所有可见颜色的集合，物体仅反射代表物体颜色的部分。</p>
 <p>图形中将光源的颜色与物体的颜色值相乘，得到的就是这个物体所反射的颜色。</p>
