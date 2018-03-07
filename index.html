@@ -81,7 +81,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/03/01/光照/" data-id="cjegtsvqy000180urkmp2avj5" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/03/01/光照/" data-id="cjegtwvwy000190ur3pnyplay" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -106,7 +106,12 @@
 <h5 id="环境光照"><a href="#环境光照" class="headerlink" title="环境光照"></a>环境光照</h5><p>要得到环境光照，我们用光的颜色乘以一个很小的常量环境因子，再乘以物体的颜色，然后将最终结果作为片段的颜色：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">float</span> ambientStrength = <span class="number">0.1</span>;</span><br><span class="line">    vec3 ambient = ambientStrength * lightColor;</span><br><span class="line">    vec3 result = ambient * objectColor;</span><br><span class="line">    FragColor = vec4(result, <span class="number">1.0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h5 id="漫反射光照"><a href="#漫反射光照" class="headerlink" title="漫反射光照"></a>漫反射光照</h5><p>通过计算法向量和光源方向的夹角大小来反映漫反射的强度，通过计算两个归一化向量之间的点乘来表示夹角大小。</p>
-<p><img src="/2018/03/01/光照/diffuse_light.png" alt="漫发射大小">{:align=”center”}</p>
+<div align="center">
+
+![漫发射大小](光照/diffuse_light.png)
+
+</div>
+
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vec3 norm = normalize(Normal);</span><br><span class="line">vec3 lightDir = normalize(lightPos - FragPos);</span><br><span class="line"><span class="keyword">float</span> diff = max(dot(norm, lightDir), <span class="number">0.0</span>);</span><br><span class="line">vec3 diffuse = diff * lightColor;</span><br></pre></td></tr></table></figure>
 <p>片段着色器的计算都是在世界空间坐标中进行的，所以法向量需要转换为世界空间坐标，但是并不能直接通过顶点的转换矩阵进行转换，这样可能会造成法向量不垂直于表面（不等比缩放后），诀窍是使用一个专门定制的法线矩阵(Normal Matrix)进行变换，定义为model矩阵左上角的逆矩阵的转置矩阵</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Normal = mat3(transpose(inverse(model))) * aNormal;</span><br></pre></td></tr></table></figure>
@@ -239,7 +244,7 @@ I=\frac{\theta-\gamma}{\epsilon}=\frac{\theta-\gamma}{\phi-\gamma}</script><p>�
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/02/28/渲染流水线/" data-id="cjegtsvra000380ur5reg8jsp" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/02/28/渲染流水线/" data-id="cjegtwvxb000390urcfsvw8lu" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -417,6 +422,21 @@ I=\frac{\theta-\gamma}{\epsilon}=\frac{\theta-\gamma}{\phi-\gamma}</script><p>�
 
 <div id="bg"></div>
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdn.staticfile.org/mathjax/2.7.0-beta.0/config/TeX-AMS-MML_HTMLorMML.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
