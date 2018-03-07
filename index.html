@@ -81,7 +81,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/03/01/光照/" data-id="cjegsspbo00021rur2uz8rep9" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/03/01/光照/" data-id="cjegtabio000140urc7payy7w" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -160,7 +160,9 @@
 <p>如果把光定义为<code>vec4</code>那么可以利用w分量决定定向光还是位置光源(Positional Light Source)，w为1时，变换和投影可以作用到光源上，为点光源的位置向量；w为0时，为方向光源。</p>
 <h4 id="点光源"><a href="#点光源" class="headerlink" title="点光源"></a>点光源</h4><p>光源处于世界中某一个位置的光源，朝着所有方向发光，但是光线会随着距离逐渐衰减。</p>
 <p><img src="/2018/03/01/光照/light_casters_point.png" alt="点光源"></p>
-<h4 id="衰减"><a href="#衰减" class="headerlink" title="衰减"></a>衰减</h4><p>随着光线传播距离的增长逐渐削减光的强度通常叫做衰减(Attenuation)。常用的衰减强度公式如下：<br>$$<br>F_att=\frac{1.0}{K_c+K_l<em>d+K_q</em>d^2}<br>$$<br>这里$d$代表片段距光源的距离，三个可配置项为常数项$K_c$，一次项$K_l$和二次项$K_q$。</p>
+<h4 id="衰减"><a href="#衰减" class="headerlink" title="衰减"></a>衰减</h4><p>随着光线传播距离的增长逐渐削减光的强度通常叫做衰减(Attenuation)。常用的衰减强度公式如下：</p>
+<script type="math/tex; mode=display">
+F_att=\frac{1.0}{K_c+K_l*d+K_q*d^2}</script><p>这里$d$代表片段距光源的距离，三个可配置项为常数项$K_c$，一次项$K_l$和二次项$K_q$。</p>
 <ul>
 <li>常数项通常保持为1.0，保证分母大于等于分子</li>
 <li>一次项以线性方程减少强度</li>
@@ -187,7 +189,9 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">float</span> theta = dot(lightDir, normalize(-light.direction));</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(theta &gt; light.cutOff) </span><br><span class="line">&#123;       </span><br><span class="line">  <span class="comment">// 执行光照计算</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span>  <span class="comment">// 否则，使用环境光，让场景在聚光之外时不至于完全黑暗</span></span><br><span class="line">  color = vec4(light.ambient * vec3(texture(material.diffuse, TexCoords)), <span class="number">1.0</span>);</span><br></pre></td></tr></table></figure>
 <p>效果如下：</p>
 <p><img src="/2018/03/01/光照/light_casters_spotlight_hard.png" alt="手电筒"></p>
-<h4 id="平滑边缘"><a href="#平滑边缘" class="headerlink" title="平滑边缘"></a>平滑边缘</h4><p>为了使边缘平滑，使用内圆锥和外圆锥，让光从内圆锥逐渐变暗直到外圆锥，强度值通过如下公式进行计算：<br>$$<br>I=\frac{\theta-\gamma}{\epsilon}=\frac{\theta-\gamma}{\phi-\gamma}<br>$$<br>其中$\phi$为内圆锥切光角的余弦值，$\gamma$为外圆锥切光角的余弦值，$\theta$为片元的角度余弦值。</p>
+<h4 id="平滑边缘"><a href="#平滑边缘" class="headerlink" title="平滑边缘"></a>平滑边缘</h4><p>为了使边缘平滑，使用内圆锥和外圆锥，让光从内圆锥逐渐变暗直到外圆锥，强度值通过如下公式进行计算：</p>
+<script type="math/tex; mode=display">
+I=\frac{\theta-\gamma}{\epsilon}=\frac{\theta-\gamma}{\phi-\gamma}</script><p>其中$\phi$为内圆锥切光角的余弦值，$\gamma$为外圆锥切光角的余弦值，$\theta$为片元的角度余弦值。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">float</span> theta     = dot(lightDir, normalize(-light.direction));</span><br><span class="line"><span class="keyword">float</span> epsilon   = light.cutOff - light.outerCutOff;</span><br><span class="line"><span class="keyword">float</span> intensity = clamp((theta - light.outerCutOff) / epsilon, <span class="number">0.0</span>, <span class="number">1.0</span>);    <span class="comment">// 使用clamp函数限制intensity的范围为0到1</span></span><br><span class="line">...</span><br><span class="line"><span class="comment">// 将不对环境光做出影响，让它总是能有一点光</span></span><br><span class="line">diffuse  *= intensity;</span><br><span class="line">specular *= intensity;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 <p><img src="/2018/03/01/光照/light_casters_spotlight.png" alt="平滑边缘"></p>
 <p>适用于恐怖游戏。</p>
@@ -235,7 +239,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/02/28/渲染流水线/" data-id="cjegsspbb00001rurcu4809xz" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/02/28/渲染流水线/" data-id="cjegtabjf000740urpos8j6in" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -413,23 +417,21 @@
 
 <div id="bg"></div>
 
-  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+  </div>
 <script type="text/x-mathjax-config">
-  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
 </script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
