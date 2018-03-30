@@ -43,7 +43,7 @@
 <meta property="og:image" content="http://yoursite.com/2018/03/15/高级光照/IMG_20180321_155119.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/03/15/高级光照/point_shadows_diagram.png">
 <meta property="og:image" content="http://yoursite.com/2018/03/15/高级光照/point_shadows.png">
-<meta property="og:updated_time" content="2018-03-21T08:11:52.996Z">
+<meta property="og:updated_time" content="2018-03-21T08:21:11.938Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="高级光照">
 <meta name="twitter:description" content="1 Blinn-Phong光照使用半程向量与法向量之间的角度代替视线与反射向量之间的角度，其它与Phong光照一致。 优点：  计算快  当角度超过90度时不会出现异常的光照(Phong会产生异常的光照，因为cos超过90度为负数)  2 Gamma校正人眼感知的非线性：相当于物理亮度的2次幂  显示器的非线性：相当于物理亮度的2.2次幂(CRT显示器)  但是显示器的衰减+人眼的衰减，就使得人眼">
@@ -108,7 +108,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/03/15/高级光照/" data-id="cjf0t7y06000210ur23amdbxx" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/03/15/高级光照/" data-id="cjfdttzux00070zurrwhhh9vh" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -285,6 +285,21 @@
 
 <div id="bg"></div>
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script> --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
